@@ -1,0 +1,38 @@
+# Build artifacts
+**/target/
+**/build/
+**/dist/
+**/out/
+
+# Dependencies
+node_modules/
+**/vendor/
+**/__pycache__/
+*.pyc
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets
+*.env
+.env.*
+secrets/
+*.key
+*.pem
+
+# Docker
+.dockerignore
+
+# Kubernetes
+kubeconfig
+*.kubeconfig
+
+# DigitalOcean
+do-config.yaml
