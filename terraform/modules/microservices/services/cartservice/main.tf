@@ -19,15 +19,7 @@ resource "kubernetes_deployment" "cartservice" {
           port {
             container_port = 7070
           }
-          env {
-            name = "REDIS_ADDR"
-            value_from {
-              secret_key_ref {
-                name = var.redis_secret
-                key  = "host"
-              }
-            }
-          }
+          # Using in-memory storage instead of Redis
         }
       }
     }

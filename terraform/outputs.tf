@@ -17,9 +17,3 @@ output "frontend_ip" {
   description = "Frontend LoadBalancer IP"
   value       = module.microservices.frontend_ip
 }
-
-output "redis_host" {
-  description = "Redis database host"
-  value       = module.infrastructure.redis_host
-  sensitive   = true
-}

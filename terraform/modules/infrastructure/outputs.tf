@@ -24,19 +24,3 @@ output "registry_endpoint" {
   description = "Container registry endpoint"
   value       = digitalocean_container_registry.hipster_shop.endpoint
 }
-
-output "redis_host" {
-  description = "Redis database host"
-  value       = digitalocean_database_cluster.redis.host
-}
-
-output "redis_port" {
-  description = "Redis database port"
-  value       = digitalocean_database_cluster.redis.port
-}
-
-output "redis_password" {
-  description = "Redis database password"
-  value       = digitalocean_database_cluster.redis.password
-  sensitive   = true
-}

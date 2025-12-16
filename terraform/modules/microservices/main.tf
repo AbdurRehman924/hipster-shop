@@ -14,19 +14,6 @@ resource "kubernetes_namespace" "hipster_shop" {
   }
 }
 
-# Redis Secret
-resource "kubernetes_secret" "redis" {
-  metadata {
-    name      = "redis-secret"
-    namespace = kubernetes_namespace.hipster_shop.metadata[0].name
-  }
-  data = {
-    host     = var.redis_host
-    port     = var.redis_port
-    password = var.redis_password
-  }
-}
-
 module "frontend" {
   source = "./services/frontend"
   
@@ -37,9 +24,8 @@ module "frontend" {
 module "cartservice" {
   source = "./services/cartservice"
   
-  namespace   = kubernetes_namespace.hipster_shop.metadata[0].name
-  image_tag   = var.image_tag
-  redis_secret = kubernetes_secret.redis.metadata[0].name
+  namespace = kubernetes_namespace.hipster_shop.metadata[0].name
+  image_tag = var.image_tag
 }
 
 module "productcatalogservice" {

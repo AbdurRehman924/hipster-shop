@@ -34,11 +34,8 @@ provider "kubernetes" {
 module "microservices" {
   source = "./modules/microservices"
   
-  namespace         = var.project_name
-  image_tag        = var.image_tag
-  redis_host       = module.infrastructure.redis_host
-  redis_port       = module.infrastructure.redis_port
-  redis_password   = module.infrastructure.redis_password
+  namespace  = var.project_name
+  image_tag  = var.image_tag
   
   depends_on = [module.infrastructure]
 }
