@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    digitalocean = {
+      source  = "digitalocean/digitalocean"
+      version = "~> 2.0"
+    }
+  }
+}
+
 # DOKS Cluster
 resource "digitalocean_kubernetes_cluster" "hipster_shop" {
   name    = "hipster-shop"

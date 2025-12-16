@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "~> 2.0"
+    }
+  }
+}
+
 # Namespace
 resource "kubernetes_namespace" "hipster_shop" {
   metadata {
