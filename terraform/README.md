@@ -1,6 +1,23 @@
 # DigitalOcean Deployment
 
-This Terraform configuration deploys the Online Boutique microservices application on DigitalOcean Kubernetes (DOKS).
+This Terraform configuration deploys the Online Boutique microservices application on DigitalOcean Kubernetes (DOKS) using a modular architecture.
+
+## Architecture
+
+```
+terraform/
+├── main.tf                    # Root module
+├── variables.tf               # Root variables
+├── outputs.tf                 # Root outputs
+├── modules/
+│   ├── infrastructure/        # DOKS cluster, Redis, Registry
+│   └── microservices/         # All microservices
+│       └── services/          # Individual service modules
+│           ├── frontend/
+│           ├── cartservice/
+│           ├── productcatalogservice/
+│           └── ...
+```
 
 ## Prerequisites
 
@@ -37,6 +54,18 @@ This Terraform configuration deploys the Online Boutique microservices applicati
    terraform apply
    ```
 
+## Modules
+
+### Infrastructure Module
+- DOKS cluster (3 nodes, s-2vcpu-4gb)
+- Container Registry
+- Redis database cluster
+
+### Microservices Module
+- Kubernetes namespace
+- Redis secret
+- All 10 microservices as individual modules
+
 ## Access the Application
 
 After deployment, get the frontend LoadBalancer IP:
@@ -52,14 +81,6 @@ To manage the cluster with kubectl:
 ```bash
 doctl kubernetes cluster kubeconfig save hipster-shop
 ```
-
-## Resources Created
-
-- DOKS cluster (3 nodes, s-2vcpu-4gb)
-- Container Registry
-- Redis database cluster
-- All microservices deployed as Kubernetes deployments
-- LoadBalancer service for frontend
 
 ## Cleanup
 
