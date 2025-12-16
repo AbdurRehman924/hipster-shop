@@ -41,12 +41,11 @@ resource "digitalocean_database_cluster" "redis" {
   node_count = 1
 }
 
-# Assign resources to project
+# Assign resources to project (container registry doesn't support urn)
 resource "digitalocean_project_resources" "hipster_shop" {
   project = data.digitalocean_project.hipster_shop.id
   resources = [
     digitalocean_kubernetes_cluster.hipster_shop.urn,
-    digitalocean_container_registry.hipster_shop.urn,
     digitalocean_database_cluster.redis.urn
   ]
 }
