@@ -15,3 +15,9 @@ variable "image_tag" {
   type        = string
   default     = "v0.10.4"
 }
+
+variable "project_name" {
+  description = "Project name for resource naming"
+  type        = string
+  default     = "hipster-shop-google-project"
+}

@@ -7,11 +7,16 @@ terraform {
   }
 }
 
+# DigitalOcean Project
+data "digitalocean_project" "hipster_shop" {
+  name = var.project_name
+}
+
 # DOKS Cluster
 resource "digitalocean_kubernetes_cluster" "hipster_shop" {
   name    = "hipster-shop"
   region  = var.region
-  version = "1.28.2-do.0"
+  version = "1.34.1-do.1"
 
   node_pool {
     name       = "worker-pool"
@@ -34,4 +39,14 @@ resource "digitalocean_database_cluster" "redis" {
   size       = "db-s-1vcpu-1gb"
   region     = var.region
   node_count = 1
+}
+
+# Assign resources to project
+resource "digitalocean_project_resources" "hipster_shop" {
+  project = data.digitalocean_project.hipster_shop.id
+  resources = [
+    digitalocean_kubernetes_cluster.hipster_shop.urn,
+    digitalocean_container_registry.hipster_shop.urn,
+    digitalocean_database_cluster.redis.urn
+  ]
 }

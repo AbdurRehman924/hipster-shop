@@ -9,3 +9,8 @@ variable "region" {
   type        = string
   default     = "nyc3"
 }
+
+variable "project_name" {
+  description = "DigitalOcean project name"
+  type        = string
+}

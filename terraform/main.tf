@@ -18,8 +18,9 @@ provider "digitalocean" {
 module "infrastructure" {
   source = "./modules/infrastructure"
   
-  do_token = var.do_token
-  region   = var.region
+  do_token     = var.do_token
+  region       = var.region
+  project_name = var.project_name
 }
 
 provider "kubernetes" {
@@ -33,7 +34,7 @@ provider "kubernetes" {
 module "microservices" {
   source = "./modules/microservices"
   
-  namespace         = "hipster-shop"
+  namespace         = var.project_name
   image_tag        = var.image_tag
   redis_host       = module.infrastructure.redis_host
   redis_port       = module.infrastructure.redis_port
