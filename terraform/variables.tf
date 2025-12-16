@@ -13,5 +13,5 @@ variable "region" {
 variable "image_tag" {
   description = "Docker image tag for microservices"
   type        = string
-  default     = "latest"
+  default     = "v0.10.4"
 }
