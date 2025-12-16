@@ -1,0 +1,10 @@
+# Copy this file to terraform.tfvars and fill in your values
+
+# DigitalOcean API token (required)
+do_token = "your_digitalocean_api_token_here"
+
+# DigitalOcean region (optional, defaults to nyc3)
+region = "nyc3"
+
+# Docker image tag (optional, defaults to latest)
+image_tag = "v0.8.0"
