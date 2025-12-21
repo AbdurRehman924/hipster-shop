@@ -36,3 +36,11 @@ kubeconfig
 
 # DigitalOcean
 do-config.yaml
+
+# Terraform
+**/.terraform/
+**/.terraform.lock.hcl
+**/terraform.tfvars
+**/terraform.tfstate
+**/terraform.tfstate.backup
+**/.terraform.tfstate.lock.info
