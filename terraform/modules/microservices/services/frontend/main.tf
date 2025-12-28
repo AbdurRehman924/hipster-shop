@@ -15,7 +15,7 @@ resource "kubernetes_deployment" "frontend" {
       spec {
         container {
           name  = "server"
-          image = "gcr.io/google-samples/microservices-demo/frontend:${var.image_tag}"
+          image = "gcr.io/google-samples/microservices-demo/frontend:v0.8.0"
           port {
             container_port = 8080
           }
