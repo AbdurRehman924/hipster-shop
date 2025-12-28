@@ -13,7 +13,7 @@ variable "region" {
 variable "image_tag" {
   description = "Docker image tag for microservices"
   type        = string
-  default     = "v0.10.4"
+  default     = "v0.10.0"
 }
 
 variable "project_name" {
