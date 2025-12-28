@@ -16,7 +16,7 @@ data "digitalocean_project" "hipster_shop" {
 resource "digitalocean_kubernetes_cluster" "hipster_shop" {
   name    = "hipster-shop"
   region  = var.region
-  version = "1.34.1-do.1"
+  version = "1.34.1-do.2"
 
   node_pool {
     name       = "worker-pool"
