@@ -1,59 +1,105 @@
-# Hipster Shop Kubernetes Infrastructure
+# Hipster Shop Kubernetes Infrastructure (K8s Native)
 
-Terraform-based infrastructure deployment for Google's Online Boutique microservices demo on DigitalOcean Kubernetes (DOKS).
+Terraform-based infrastructure with Kubernetes-native deployments for Google's Online Boutique microservices demo on DigitalOcean.
 
 ## Architecture
 
-This project deploys a complete microservices e-commerce application with:
-- 10 microservices (Go, C#, Node.js, Python, Java)
-- DigitalOcean Kubernetes cluster
-- Redis database
-- Container registry
-- Load balancer
+- **Infrastructure**: DigitalOcean Kubernetes (DOKS) + Redis via Terraform
+- **Applications**: Deployed via Helm Charts, Kustomize, or plain manifests
+- **Separation**: Infrastructure and application deployments are decoupled
+
+## Project Structure
+
+```
+├── terraform-infra/          # Infrastructure only (DOKS, Redis, Registry)
+├── k8s/
+│   ├── helm/                 # Helm charts
+│   ├── kustomize/           # Kustomize configurations
+│   └── manifests/           # Plain Kubernetes manifests
+├── scripts/                 # Deployment scripts
+└── docs/                    # Documentation
+```
 
 ## Prerequisites
 
 - [Terraform](https://www.terraform.io/downloads.html) >= 1.0
+- [kubectl](https://kubernetes.io/docs/tasks/tools/)
+- [doctl](https://docs.digitalocean.com/reference/doctl/) (DigitalOcean CLI)
 - DigitalOcean API token
-- [kubectl](https://kubernetes.io/docs/tasks/tools/) (optional)
+
+Optional:
+- [Helm](https://helm.sh/docs/intro/install/) (for Helm deployments)
+- [Kustomize](https://kustomize.io/) (for Kustomize deployments)
 
 ## Quick Start
 
 1. **Configure variables:**
    ```bash
-   cp terraform/terraform.tfvars.example terraform/terraform.tfvars
-   # Edit terraform.tfvars with your DO token
+   cp terraform-infra/terraform.tfvars.example terraform-infra/terraform.tfvars
+   # Edit with your DO token
    ```
 
-2. **Deploy infrastructure:**
+2. **Deploy everything:**
    ```bash
-   cd terraform
-   terraform init
-   terraform plan
-   terraform apply
+   ./scripts/deploy.sh
    ```
 
-3. **Access application:**
+3. **Or deploy manually:**
+
+   **Infrastructure:**
    ```bash
-   terraform output frontend_ip
-   # Visit http://<frontend_ip>
+   cd terraform-infra
+   terraform init && terraform apply
    ```
+
+   **Get cluster access:**
+   ```bash
+   doctl kubernetes cluster kubeconfig save $(terraform output -raw cluster_id)
+   ```
+
+   **Deploy apps (choose one):**
+   ```bash
+   # Helm
+   helm install hipster-shop k8s/helm/hipster-shop --create-namespace
+   
+   # Kustomize
+   kubectl apply -k k8s/kustomize/base
+   
+   # Plain manifests
+   kubectl apply -f k8s/manifests/
+   ```
+
+## Deployment Options
+
+### 1. Helm Charts
+- **Location**: `k8s/helm/hipster-shop/`
+- **Features**: Templating, values override, easy upgrades
+- **Usage**: `helm install hipster-shop k8s/helm/hipster-shop`
+
+### 2. Kustomize
+- **Location**: `k8s/kustomize/`
+- **Features**: Overlays for different environments
+- **Usage**: `kubectl apply -k k8s/kustomize/base`
+
+### 3. Plain Manifests
+- **Location**: `k8s/manifests/`
+- **Features**: Simple, direct Kubernetes YAML
+- **Usage**: `kubectl apply -f k8s/manifests/`
 
 ## Cost Estimation
 
 - DOKS cluster: ~$72/month
 - Redis database: ~$15/month  
 - Load balancer: ~$12/month
-- Container registry: ~$5/month
 
-**Total: ~$104/month**
+**Total: ~$99/month**
 
 ## Cleanup
 
 ```bash
-terraform destroy
+# Remove applications
+kubectl delete namespace hipster-shop
+
+# Remove infrastructure
+cd terraform-infra && terraform destroy
 ```
-
-## Documentation
-
-See [docs/flow/microservices-architecture.md](docs/flow/microservices-architecture.md) for detailed architecture information.
