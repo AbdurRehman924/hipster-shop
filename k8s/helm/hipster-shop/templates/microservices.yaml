@@ -1,0 +1,64 @@
+{{- range $name, $service := .Values.services }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $name }}
+  namespace: {{ $.Values.namespace }}
+spec:
+  replicas: {{ $service.replicas }}
+  selector:
+    matchLabels:
+      app: {{ $name }}
+  template:
+    metadata:
+      labels:
+        app: {{ $name }}
+    spec:
+      containers:
+      - name: {{ $name }}
+        image: {{ $.Values.global.imageRegistry }}/{{ $service.image }}:{{ $.Values.global.imageTag }}
+        ports:
+        - containerPort: {{ $service.port }}
+        {{- if eq $name "frontend" }}
+        env:
+        - name: PRODUCT_CATALOG_SERVICE_ADDR
+          value: "productcatalogservice:3550"
+        - name: CURRENCY_SERVICE_ADDR
+          value: "currencyservice:7000"
+        - name: CART_SERVICE_ADDR
+          value: "cartservice:7070"
+        - name: RECOMMENDATION_SERVICE_ADDR
+          value: "recommendationservice:8080"
+        - name: SHIPPING_SERVICE_ADDR
+          value: "shippingservice:50051"
+        - name: CHECKOUT_SERVICE_ADDR
+          value: "checkoutservice:5050"
+        - name: AD_SERVICE_ADDR
+          value: "adservice:9555"
+        {{- end }}
+        {{- if eq $name "cartservice" }}
+        env:
+        - name: REDIS_ADDR
+          value: "{{ $.Values.redis.host }}:{{ $.Values.redis.port }}"
+        {{- if $.Values.redis.password }}
+        - name: REDIS_PASSWORD
+          value: "{{ $.Values.redis.password }}"
+        {{- end }}
+        {{- end }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $name }}
+  namespace: {{ $.Values.namespace }}
+spec:
+  selector:
+    app: {{ $name }}
+  ports:
+  - port: {{ $service.port }}
+    targetPort: {{ $service.port }}
+  {{- if and (eq $name "frontend") $.Values.loadbalancer.enabled }}
+  type: {{ $.Values.loadbalancer.type }}
+  {{- end }}
+{{- end }}

@@ -1,0 +1,67 @@
+global:
+  imageTag: "v0.10.0"
+  imageRegistry: "gcr.io/google-samples/microservices-demo"
+
+namespace: hipster-shop
+
+redis:
+  enabled: true
+  external: true
+  host: ""
+  port: 6379
+  password: ""
+
+services:
+  frontend:
+    image: "frontend"
+    port: 8080
+    replicas: 1
+    
+  productcatalogservice:
+    image: "productcatalogservice"
+    port: 3550
+    replicas: 1
+    
+  cartservice:
+    image: "cartservice"
+    port: 7070
+    replicas: 1
+    
+  currencyservice:
+    image: "currencyservice"
+    port: 7000
+    replicas: 1
+    
+  paymentservice:
+    image: "paymentservice"
+    port: 50051
+    replicas: 1
+    
+  shippingservice:
+    image: "shippingservice"
+    port: 50051
+    replicas: 1
+    
+  emailservice:
+    image: "emailservice"
+    port: 8080
+    replicas: 1
+    
+  checkoutservice:
+    image: "checkoutservice"
+    port: 5050
+    replicas: 1
+    
+  recommendationservice:
+    image: "recommendationservice"
+    port: 8080
+    replicas: 1
+    
+  adservice:
+    image: "adservice"
+    port: 9555
+    replicas: 1
+
+loadbalancer:
+  enabled: true
+  type: LoadBalancer
