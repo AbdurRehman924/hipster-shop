@@ -5,8 +5,8 @@ global:
 namespace: hipster-shop
 
 redis:
-  enabled: true
-  external: true
+  enabled: false
+  external: false
   host: ""
   port: 6379
   password: ""

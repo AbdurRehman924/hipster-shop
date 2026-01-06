@@ -38,12 +38,14 @@ spec:
           value: "adservice:9555"
         {{- end }}
         {{- if eq $name "cartservice" }}
+        {{- if $.Values.redis.enabled }}
         env:
         - name: REDIS_ADDR
           value: "{{ $.Values.redis.host }}:{{ $.Values.redis.port }}"
         {{- if $.Values.redis.password }}
         - name: REDIS_PASSWORD
           value: "{{ $.Values.redis.password }}"
+        {{- end }}
         {{- end }}
         {{- end }}
 ---
