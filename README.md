@@ -4,18 +4,17 @@ Terraform-based infrastructure with Kubernetes-native deployments for Google's O
 
 ## Architecture
 
-- **Infrastructure**: DigitalOcean Kubernetes (DOKS) + Redis via Terraform
-- **Applications**: Deployed via Helm Charts, Kustomize, or plain manifests
+- **Infrastructure**: DigitalOcean Kubernetes (DOKS) via Terraform
+- **Applications**: Deployed via Helm Charts
+- **Storage**: In-memory cart storage (no external database)
 - **Separation**: Infrastructure and application deployments are decoupled
 
 ## Project Structure
 
 ```
-├── terraform-infra/          # Infrastructure only (DOKS, Redis, Registry)
+├── terraform-infra/          # Infrastructure only (DOKS, Registry)
 ├── k8s/
-│   ├── helm/                 # Helm charts
-│   ├── kustomize/           # Kustomize configurations
-│   └── manifests/           # Plain Kubernetes manifests
+│   └── helm/                 # Helm charts
 ├── scripts/                 # Deployment scripts
 └── docs/                    # Documentation
 ```
@@ -89,10 +88,9 @@ Optional:
 ## Cost Estimation
 
 - DOKS cluster: ~$72/month
-- Redis database: ~$15/month  
 - Load balancer: ~$12/month
 
-**Total: ~$99/month**
+**Total: ~$84/month**
 
 ## Cleanup
 
