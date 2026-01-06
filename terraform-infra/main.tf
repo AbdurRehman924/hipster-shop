@@ -35,21 +35,10 @@ resource "digitalocean_container_registry" "hipster_shop" {
   subscription_tier_slug = "basic"
 }
 
-# Redis Database
-resource "digitalocean_database_cluster" "redis" {
-  name       = "hipster-shop-redis"
-  engine     = "redis"
-  version    = "7"
-  size       = "db-s-1vcpu-1gb"
-  region     = var.region
-  node_count = 1
-}
-
 # Assign resources to project
 resource "digitalocean_project_resources" "hipster_shop" {
   project = data.digitalocean_project.hipster_shop.id
   resources = [
-    digitalocean_kubernetes_cluster.hipster_shop.urn,
-    digitalocean_database_cluster.redis.urn
+    digitalocean_kubernetes_cluster.hipster_shop.urn
   ]
 }
