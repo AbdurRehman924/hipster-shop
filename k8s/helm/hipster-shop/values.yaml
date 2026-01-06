@@ -4,13 +4,6 @@ global:
 
 namespace: hipster-shop
 
-redis:
-  enabled: false
-  external: false
-  host: ""
-  port: 6379
-  password: ""
-
 services:
   frontend:
     image: "frontend"

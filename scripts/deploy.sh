@@ -16,7 +16,6 @@ cd ../k8s
 
 echo "Deploying with Helm..."
 helm upgrade --install hipster-shop ./helm/hipster-shop \
-  --set redis.enabled=false \
   --create-namespace
 
 echo "Deployment complete!"
