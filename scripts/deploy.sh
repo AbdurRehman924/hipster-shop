@@ -19,36 +19,12 @@ REDIS_PASSWORD=$(terraform output -raw redis_password)
 
 cd ../k8s
 
-echo "Choose deployment method:"
-echo "1) Helm"
-echo "2) Kustomize"
-echo "3) Plain manifests"
-read -p "Enter choice (1-3): " choice
-
-case $choice in
-  1)
-    echo "Deploying with Helm..."
-    helm upgrade --install hipster-shop ./helm/hipster-shop \
-      --set redis.host=$REDIS_HOST \
-      --set redis.port=$REDIS_PORT \
-      --set redis.password=$REDIS_PASSWORD \
-      --create-namespace
-    ;;
-  2)
-    echo "Deploying with Kustomize..."
-    kubectl apply -k kustomize/base
-    ;;
-  3)
-    echo "Deploying with plain manifests..."
-    kubectl apply -f manifests/namespace/
-    kubectl apply -f manifests/deployments/
-    kubectl apply -f manifests/services/
-    ;;
-  *)
-    echo "Invalid choice"
-    exit 1
-    ;;
-esac
+echo "Deploying with Helm..."
+helm upgrade --install hipster-shop ./helm/hipster-shop \
+  --set redis.host=$REDIS_HOST \
+  --set redis.port=$REDIS_PORT \
+  --set redis.password=$REDIS_PASSWORD \
+  --create-namespace
 
 echo "Deployment complete!"
 echo "Getting frontend service IP..."
