@@ -36,7 +36,35 @@ spec:
           value: "checkoutservice:5050"
         - name: AD_SERVICE_ADDR
           value: "adservice:9555"
+        - name: SHOPPING_ASSISTANT_SERVICE_ADDR
+          value: "shoppingassistantservice:80"
         {{- end }}
+        {{- if eq $name "checkoutservice" }}
+        env:
+        - name: PRODUCT_CATALOG_SERVICE_ADDR
+          value: "productcatalogservice:3550"
+        - name: SHIPPING_SERVICE_ADDR
+          value: "shippingservice:50051"
+        - name: PAYMENT_SERVICE_ADDR
+          value: "paymentservice:50051"
+        - name: EMAIL_SERVICE_ADDR
+          value: "emailservice:8080"
+        - name: CURRENCY_SERVICE_ADDR
+          value: "currencyservice:7000"
+        - name: CART_SERVICE_ADDR
+          value: "cartservice:7070"
+        {{- end }}
+        {{- if eq $name "recommendationservice" }}
+        env:
+        - name: PRODUCT_CATALOG_SERVICE_ADDR
+          value: "productcatalogservice:3550"
+        {{- end }}
+        {{- if or (eq $name "currencyservice") (eq $name "paymentservice") }}
+        env:
+        - name: PORT
+          value: "{{ $service.port }}"
+        - name: DISABLE_PROFILER
+          value: "1"
         {{- end }}
 ---
 apiVersion: v1
