@@ -14,9 +14,13 @@ Terraform-based infrastructure with Kubernetes-native deployments for Google's O
 ```
 ├── terraform-infra/          # Infrastructure only (DOKS, Registry)
 ├── k8s/
-│   └── helm/                 # Helm charts
+│   ├── helm/                 # Helm charts
+│   │   ├── hipster-shop/     # Main application
+│   │   └── monitoring/       # Observability stack
 ├── scripts/                 # Deployment scripts
-└── docs/                    # Documentation
+├── docs/                    # Documentation
+│   └── LEARNING-LAB.md      # Kubernetes learning guide
+└── README.md
 ```
 
 ## Prerequisites
@@ -56,17 +60,27 @@ Optional:
    doctl kubernetes cluster kubeconfig save $(terraform output -raw cluster_id)
    ```
 
-   **Deploy apps (choose one):**
+   **Deploy apps:**
    ```bash
-   # Helm
+   # Main application
    helm install hipster-shop k8s/helm/hipster-shop --create-namespace
    
-   # Kustomize
-   kubectl apply -k k8s/kustomize/base
-   
-   # Plain manifests
-   kubectl apply -f k8s/manifests/
+   # Monitoring stack (optional)
+   ./scripts/deploy-monitoring.sh
    ```
+
+## 📊 Monitoring & Observability
+
+The project includes a complete monitoring stack for learning:
+
+- **Prometheus**: Metrics collection and alerting
+- **Grafana**: Visualization and dashboards  
+- **Custom Dashboards**: Pre-configured for microservices
+- **Learning Guide**: Hands-on exercises in `docs/LEARNING-LAB.md`
+
+**Access URLs** (after deployment):
+- Grafana: `http://<EXTERNAL-IP>:3000` (admin/admin123)
+- Prometheus: `http://<EXTERNAL-IP>:9090`
 
 ## Deployment Options
 
