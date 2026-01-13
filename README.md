@@ -17,9 +17,11 @@ Terraform-based infrastructure with Kubernetes-native deployments for Google's O
 │   ├── helm/                 # Helm charts
 │   │   ├── hipster-shop/     # Main application
 │   │   └── monitoring/       # Observability stack
+│   └── istio/                # Service mesh configuration
 ├── scripts/                 # Deployment scripts
 ├── docs/                    # Documentation
-│   └── LEARNING-LAB.md      # Kubernetes learning guide
+│   ├── LEARNING-LAB.md      # Kubernetes learning guide
+│   └── ISTIO-GUIDE.md       # Service mesh learning guide
 └── README.md
 ```
 
@@ -67,6 +69,9 @@ Optional:
    
    # Monitoring stack (optional)
    ./scripts/deploy-monitoring.sh
+   
+   # Service mesh (optional)
+   ./scripts/deploy-istio.sh
    ```
 
 ## 📊 Monitoring & Observability
@@ -81,6 +86,20 @@ The project includes a complete monitoring stack for learning:
 **Access URLs** (after deployment):
 - Grafana: `http://<EXTERNAL-IP>:3000` (admin/admin123)
 - Prometheus: `http://<EXTERNAL-IP>:9090`
+
+## 🕸️ Service Mesh (Istio)
+
+Advanced networking, security, and observability with Istio:
+
+- **Traffic Management**: Canary deployments, circuit breaking
+- **Security**: mTLS, authorization policies, zero-trust networking
+- **Observability**: Distributed tracing, service topology
+- **Learning Guide**: Production scenarios in `docs/ISTIO-GUIDE.md`
+
+**Access URLs** (after Istio deployment):
+- Kiali Dashboard: `http://<INGRESS-IP>:20001`
+- Jaeger Tracing: `http://<INGRESS-IP>:16686`
+- Application: `http://<INGRESS-IP>`
 
 ## Deployment Options
 
