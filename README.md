@@ -84,8 +84,24 @@ The project includes a complete monitoring stack for learning:
 - **Learning Guide**: Hands-on exercises in `docs/LEARNING-LAB.md`
 
 **Access URLs** (after deployment):
-- Grafana: `http://<EXTERNAL-IP>:3000` (admin/admin123)
-- Prometheus: `http://<EXTERNAL-IP>:9090`
+- Grafana: `https://grafana.yourdomain.com` (admin/admin123)
+- Prometheus: `https://prometheus.yourdomain.com`
+
+## 🌐 Advanced Networking
+
+Production-grade networking with security and automation:
+
+- **Network Policies**: Zero-trust pod-to-pod communication
+- **NGINX Ingress**: Centralized routing with single LoadBalancer
+- **Cert-Manager**: Automated TLS certificates from Let's Encrypt
+- **External DNS**: Automatic DNS record management
+- **Learning Guide**: Hands-on exercises in `docs/NETWORKING-GUIDE.md`
+
+**Features:**
+- Secure service-to-service communication
+- Automatic HTTPS with certificate renewal
+- Cost savings: $24/month (67% reduction in LoadBalancers)
+- DNS automation with DigitalOcean integration
 
 ## 🕸️ Service Mesh (Istio)
 
