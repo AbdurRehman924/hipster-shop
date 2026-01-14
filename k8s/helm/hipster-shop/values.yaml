@@ -56,5 +56,5 @@ services:
     replicas: 1
 
 loadbalancer:
-  enabled: true
-  type: LoadBalancer
+  enabled: false
+  type: ClusterIP
