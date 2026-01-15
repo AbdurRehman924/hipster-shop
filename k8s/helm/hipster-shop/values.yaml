@@ -8,7 +8,14 @@ services:
   frontend:
     image: "frontend"
     port: 8080
-    replicas: 1
+    replicas: 2
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 500m
+        memory: 512Mi
     
   productcatalogservice:
     image: "productcatalogservice"
@@ -19,6 +26,13 @@ services:
     image: "cartservice"
     port: 7070
     replicas: 1
+    resources:
+      requests:
+        cpu: 50m
+        memory: 64Mi
+      limits:
+        cpu: 300m
+        memory: 256Mi
     
   currencyservice:
     image: "currencyservice"
