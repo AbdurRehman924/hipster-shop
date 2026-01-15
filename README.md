@@ -76,16 +76,42 @@ Optional:
 
 ## 📊 Monitoring & Observability
 
-The project includes a complete monitoring stack for learning:
+Complete observability stack with metrics, logs, and autoscaling:
 
 - **Prometheus**: Metrics collection and alerting
 - **Grafana**: Visualization and dashboards  
+- **Loki**: Log aggregation and querying
+- **HPA/VPA**: Automatic scaling based on metrics
 - **Custom Dashboards**: Pre-configured for microservices
 - **Learning Guide**: Hands-on exercises in `docs/LEARNING-LAB.md`
 
 **Access URLs** (after deployment):
-- Grafana: `https://grafana.yourdomain.com` (admin/admin123)
-- Prometheus: `https://prometheus.yourdomain.com`
+- Grafana: `kubectl port-forward svc/grafana 3000:80 -n monitoring` (admin/admin123)
+- Prometheus: `kubectl port-forward svc/prometheus 9090:9090 -n monitoring`
+
+**Autoscaling Commands:**
+```bash
+# Watch HPA in action
+kubectl get hpa -n hipster-shop -w
+
+# Check resource usage
+kubectl top pods -n hipster-shop
+
+# View VPA recommendations
+kubectl describe vpa -n hipster-shop
+```
+
+**Log Queries (in Grafana > Explore > Loki):**
+```logql
+# All logs from hipster-shop
+{namespace="hipster-shop"}
+
+# Frontend errors
+{app="frontend"} |= "error"
+
+# JSON log parsing
+{namespace="hipster-shop"} | json | level="ERROR"
+```
 
 ## 🌐 Advanced Networking
 
