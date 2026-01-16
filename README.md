@@ -16,12 +16,21 @@ Terraform-based infrastructure with Kubernetes-native deployments for Google's O
 ├── k8s/
 │   ├── helm/                 # Helm charts
 │   │   ├── hipster-shop/     # Main application
-│   │   └── monitoring/       # Observability stack
+│   │   ├── monitoring/       # Observability stack
+│   │   ├── logging/          # Loki configuration
+│   │   └── kubecost/         # Cost analysis
+│   ├── autoscaling/          # HPA/VPA configs
+│   ├── chaos/                # Chaos experiments
+│   ├── policies/             # Kyverno policies
+│   ├── networking/           # Network policies, ingress
 │   └── istio/                # Service mesh configuration
-├── scripts/                 # Deployment scripts
-├── docs/                    # Documentation
-│   ├── LEARNING-LAB.md      # Kubernetes learning guide
-│   └── ISTIO-GUIDE.md       # Service mesh learning guide
+├── scripts/                  # Deployment scripts
+├── docs/                     # Documentation
+│   ├── LEARNING-LAB.md       # Kubernetes learning guide
+│   ├── ISTIO-GUIDE.md        # Service mesh learning guide
+│   ├── CHAOS-GUIDE.md        # Chaos engineering guide
+│   ├── POLICY-GUIDE.md       # Policy enforcement guide
+│   └── KUBECOST-GUIDE.md     # Cost optimization guide
 └── README.md
 ```
 
@@ -142,6 +151,57 @@ Advanced networking, security, and observability with Istio:
 - Kiali Dashboard: `http://<INGRESS-IP>:20001`
 - Jaeger Tracing: `http://<INGRESS-IP>:16686`
 - Application: `http://<INGRESS-IP>`
+
+## 🌪️ Chaos Engineering
+
+Test system resilience with Chaos Mesh:
+
+- **Pod Chaos**: Simulate failures, kills, restarts
+- **Network Chaos**: Inject latency, packet loss, partitions
+- **Stress Testing**: CPU and memory pressure
+- **HTTP Chaos**: API failures and delays
+- **Learning Guide**: Hands-on experiments in `docs/CHAOS-GUIDE.md`
+
+**Deploy & Access:**
+```bash
+./scripts/deploy-chaos.sh
+kubectl port-forward -n chaos-mesh svc/chaos-dashboard 2333:2333
+# Visit: http://localhost:2333
+```
+
+## 🔒 Policy Enforcement (Kyverno)
+
+Automate security and compliance with policy-as-code:
+
+- **Validation**: Block non-compliant resources
+- **Mutation**: Auto-modify resources to meet standards
+- **Security**: Enforce best practices automatically
+- **Audit**: Compliance reporting
+- **Learning Guide**: Policy examples in `docs/POLICY-GUIDE.md`
+
+**Deploy & Test:**
+```bash
+./scripts/deploy-policies.sh
+kubectl get clusterpolicy
+kubectl get policyreport -A
+```
+
+## 💰 Cost Optimization (Kubecost)
+
+Understand and optimize Kubernetes spending:
+
+- **Cost Allocation**: Per namespace, deployment, pod
+- **Efficiency Metrics**: Idle resources, over-provisioning
+- **Recommendations**: Right-sizing suggestions
+- **Forecasting**: Predict future costs
+- **Learning Guide**: Cost optimization in `docs/KUBECOST-GUIDE.md`
+
+**Deploy & Access:**
+```bash
+./scripts/deploy-kubecost.sh
+kubectl port-forward -n kubecost svc/kubecost-cost-analyzer 9090:9090
+# Visit: http://localhost:9090
+```
 
 ## Deployment Options
 
