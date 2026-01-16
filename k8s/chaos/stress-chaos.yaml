@@ -1,0 +1,35 @@
+apiVersion: chaos-mesh.org/v1alpha1
+kind: StressChaos
+metadata:
+  name: memory-stress
+  namespace: hipster-shop
+spec:
+  mode: one
+  selector:
+    namespaces:
+      - hipster-shop
+    labelSelectors:
+      app: cartservice
+  stressors:
+    memory:
+      workers: 1
+      size: "256MB"
+  duration: "2m"
+---
+apiVersion: chaos-mesh.org/v1alpha1
+kind: StressChaos
+metadata:
+  name: cpu-stress
+  namespace: hipster-shop
+spec:
+  mode: one
+  selector:
+    namespaces:
+      - hipster-shop
+    labelSelectors:
+      app: frontend
+  stressors:
+    cpu:
+      workers: 2
+      load: 80
+  duration: "3m"
