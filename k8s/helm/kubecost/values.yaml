@@ -1,0 +1,51 @@
+global:
+  prometheus:
+    enabled: false
+    fqdn: http://prometheus.monitoring:9090
+
+kubecostProductConfigs:
+  clusterName: "hipster-shop-doks"
+  productKey:
+    enabled: false
+
+kubecostModel:
+  warmCache: true
+  warmSavingsCache: true
+  etl: true
+  etlCloudAsset: false
+
+prometheus:
+  server:
+    global:
+      external_labels:
+        cluster_id: hipster-shop
+
+ingress:
+  enabled: false
+
+service:
+  type: ClusterIP
+  port: 9090
+
+resources:
+  requests:
+    cpu: 200m
+    memory: 512Mi
+  limits:
+    cpu: 500m
+    memory: 1Gi
+
+persistentVolume:
+  enabled: true
+  size: 10Gi
+
+networkCosts:
+  enabled: true
+  podMonitor:
+    enabled: true
+
+serviceMonitor:
+  enabled: true
+
+grafana:
+  enabled: false
