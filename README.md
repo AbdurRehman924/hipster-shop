@@ -24,13 +24,18 @@ Terraform-based infrastructure with Kubernetes-native deployments for Google's O
 │   ├── policies/             # Kyverno policies
 │   ├── networking/           # Network policies, ingress
 │   └── istio/                # Service mesh configuration
+├── gitops/                   # GitOps configurations
+│   ├── applications/         # ArgoCD app definitions
+│   ├── environments/         # Environment overlays (dev/prod)
+│   └── base/                 # Base Kustomize configs
 ├── scripts/                  # Deployment scripts
 ├── docs/                     # Documentation
 │   ├── LEARNING-LAB.md       # Kubernetes learning guide
 │   ├── ISTIO-GUIDE.md        # Service mesh learning guide
 │   ├── CHAOS-GUIDE.md        # Chaos engineering guide
 │   ├── POLICY-GUIDE.md       # Policy enforcement guide
-│   └── KUBECOST-GUIDE.md     # Cost optimization guide
+│   ├── KUBECOST-GUIDE.md     # Cost optimization guide
+│   └── GITOPS-GUIDE.md       # GitOps workflow guide
 └── README.md
 ```
 
@@ -186,21 +191,32 @@ kubectl get clusterpolicy
 kubectl get policyreport -A
 ```
 
-## 💰 Cost Optimization (Kubecost)
+## 🔄 GitOps with ArgoCD
 
-Understand and optimize Kubernetes spending:
+Continuous deployment with Git-based workflows:
 
-- **Cost Allocation**: Per namespace, deployment, pod
-- **Efficiency Metrics**: Idle resources, over-provisioning
-- **Recommendations**: Right-sizing suggestions
-- **Forecasting**: Predict future costs
-- **Learning Guide**: Cost optimization in `docs/KUBECOST-GUIDE.md`
+- **Declarative Deployments**: Git as single source of truth
+- **Automated Sync**: Continuous deployment from Git commits
+- **Multi-Environment**: Dev/staging/prod promotion workflows
+- **Self-Healing**: Automatic drift correction and rollbacks
+- **Image Updates**: Automated container version management
+- **Learning Guide**: Complete GitOps workflow in `docs/GITOPS-GUIDE.md`
 
 **Deploy & Access:**
 ```bash
-./scripts/deploy-kubecost.sh
-kubectl port-forward -n kubecost svc/kubecost-cost-analyzer 9090:9090
-# Visit: http://localhost:9090
+./scripts/deploy-argocd.sh
+kubectl port-forward svc/argocd-server -n argocd 8080:443
+# Visit: https://localhost:8080 (admin/password from script output)
+```
+
+**GitOps Workflow:**
+```bash
+# Make changes to GitOps configs
+git checkout -b feature/scale-frontend
+sed -i 's/replicas: 2/replicas: 3/' gitops/environments/dev/kustomization.yaml
+git commit -am "Scale frontend to 3 replicas"
+git push origin feature/scale-frontend
+# ArgoCD automatically detects and applies changes
 ```
 
 ## Deployment Options
