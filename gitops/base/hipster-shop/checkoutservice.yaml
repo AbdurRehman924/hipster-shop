@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: checkoutservice
+  namespace: hipster-shop
+  labels:
+    app: checkoutservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: checkoutservice
+  template:
+    metadata:
+      labels:
+        app: checkoutservice
+    spec:
+      containers:
+      - name: server
+        image: gcr.io/google-samples/microservices-demo/checkoutservice:v0.10.0
+        ports:
+        - containerPort: 5050
+        resources:
+          requests:
+            cpu: 50m
+            memory: 64Mi
+          limits:
+            cpu: 200m
+            memory: 256Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: checkoutservice
+  namespace: hipster-shop
+spec:
+  type: ClusterIP
+  selector:
+    app: checkoutservice
+  ports:
+  - port: 5050
+    targetPort: 5050
