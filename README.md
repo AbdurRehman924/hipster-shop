@@ -35,7 +35,8 @@ Terraform-based infrastructure with Kubernetes-native deployments for Google's O
 │   ├── CHAOS-GUIDE.md        # Chaos engineering guide
 │   ├── POLICY-GUIDE.md       # Policy enforcement guide
 │   ├── KUBECOST-GUIDE.md     # Cost optimization guide
-│   └── GITOPS-GUIDE.md       # GitOps workflow guide
+│   ├── GITOPS-GUIDE.md       # GitOps workflow guide
+│   └── SECURITY-GUIDE.md     # Security scanning guide
 └── README.md
 ```
 
@@ -191,32 +192,27 @@ kubectl get clusterpolicy
 kubectl get policyreport -A
 ```
 
-## 🔄 GitOps with ArgoCD
+## 🔒 Security Scanning & Compliance
 
-Continuous deployment with Git-based workflows:
+Enterprise-grade security with automated scanning and policy enforcement:
 
-- **Declarative Deployments**: Git as single source of truth
-- **Automated Sync**: Continuous deployment from Git commits
-- **Multi-Environment**: Dev/staging/prod promotion workflows
-- **Self-Healing**: Automatic drift correction and rollbacks
-- **Image Updates**: Automated container version management
-- **Learning Guide**: Complete GitOps workflow in `docs/GITOPS-GUIDE.md`
+- **Vulnerability Scanning**: Trivy for container CVE detection
+- **Runtime Security**: Falco for behavioral monitoring and threat detection
+- **Policy Enforcement**: OPA Gatekeeper for advanced security constraints
+- **Security Monitoring**: Centralized security dashboards and alerts
+- **Compliance**: Automated security best practices and reporting
+- **Learning Guide**: Complete security implementation in `docs/SECURITY-GUIDE.md`
 
-**Deploy & Access:**
+**Deploy & Monitor:**
 ```bash
-./scripts/deploy-argocd.sh
-kubectl port-forward svc/argocd-server -n argocd 8080:443
-# Visit: https://localhost:8080 (admin/password from script output)
-```
+./scripts/deploy-security.sh
+./scripts/test-security.sh
 
-**GitOps Workflow:**
-```bash
-# Make changes to GitOps configs
-git checkout -b feature/scale-frontend
-sed -i 's/replicas: 2/replicas: 3/' gitops/environments/dev/kustomization.yaml
-git commit -am "Scale frontend to 3 replicas"
-git push origin feature/scale-frontend
-# ArgoCD automatically detects and applies changes
+# View vulnerability reports
+kubectl get vulnerabilityreports -A
+
+# Monitor security events
+kubectl logs -n falco -l app.kubernetes.io/name=falco -f
 ```
 
 ## Deployment Options
