@@ -36,7 +36,8 @@ Terraform-based infrastructure with Kubernetes-native deployments for Google's O
 │   ├── POLICY-GUIDE.md       # Policy enforcement guide
 │   ├── KUBECOST-GUIDE.md     # Cost optimization guide
 │   ├── GITOPS-GUIDE.md       # GitOps workflow guide
-│   └── SECURITY-GUIDE.md     # Security scanning guide
+│   ├── SECURITY-GUIDE.md     # Security scanning guide
+│   └── BACKUP-GUIDE.md       # Backup & disaster recovery guide
 └── README.md
 ```
 
@@ -190,6 +191,30 @@ Automate security and compliance with policy-as-code:
 ./scripts/deploy-policies.sh
 kubectl get clusterpolicy
 kubectl get policyreport -A
+```
+
+## 💾 Backup & Disaster Recovery
+
+Enterprise-grade data protection with automated backups and disaster recovery:
+
+- **Automated Backups**: Scheduled cluster and application backups to DigitalOcean Spaces
+- **Volume Snapshots**: Persistent data protection with block storage snapshots
+- **Disaster Recovery**: Complete cluster restoration procedures and runbooks
+- **Multi-Schedule**: Critical (6h), daily, and weekly backup strategies
+- **Monitoring**: Backup success tracking and failure alerting
+- **Learning Guide**: Complete DR implementation in `docs/BACKUP-GUIDE.md`
+
+**Deploy & Test:**
+```bash
+# Set DigitalOcean Spaces credentials
+export DO_SPACES_KEY=your_spaces_key
+export DO_SPACES_SECRET=your_spaces_secret
+
+./scripts/deploy-backup.sh
+./scripts/test-backup.sh
+
+# Emergency disaster recovery
+./scripts/disaster-recovery.sh
 ```
 
 ## 🔒 Security Scanning & Compliance
