@@ -1,0 +1,57 @@
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: hipster-shop-critical
+  namespace: velero
+spec:
+  schedule: "0 */6 * * *"  # Every 6 hours
+  template:
+    ttl: "168h"  # 7 days
+    includedNamespaces:
+    - hipster-shop
+    includedResources:
+    - deployments
+    - services
+    - configmaps
+    - secrets
+    - persistentvolumeclaims
+    - persistentvolumes
+    snapshotVolumes: true
+    defaultVolumesToRestic: false
+---
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: monitoring-backup
+  namespace: velero
+spec:
+  schedule: "0 4 * * *"  # Daily at 4 AM
+  template:
+    ttl: "720h"  # 30 days
+    includedNamespaces:
+    - monitoring
+    excludedResources:
+    - events
+    - events.events.k8s.io
+    - pods
+    snapshotVolumes: true
+---
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: security-backup
+  namespace: velero
+spec:
+  schedule: "0 5 * * *"  # Daily at 5 AM
+  template:
+    ttl: "2160h"  # 90 days (compliance)
+    includedNamespaces:
+    - falco
+    - trivy-system
+    - gatekeeper-system
+    includedResources:
+    - configmaps
+    - secrets
+    - clusterpolicies
+    - constraints
+    snapshotVolumes: false

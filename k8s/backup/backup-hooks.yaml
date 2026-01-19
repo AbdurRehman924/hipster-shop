@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backup-hooks
+  namespace: velero
+  labels:
+    velero.io/plugin-config: ""
+    velero.io/pod-annotation-backup-hook: pre.hook.backup.velero.io/command
+data:
+  pre-backup-hook.yaml: |
+    apiVersion: v1
+    kind: Pod
+    metadata:
+      annotations:
+        pre.hook.backup.velero.io/command: '["/bin/bash", "-c", "echo Backup starting at $(date)"]'
+        pre.hook.backup.velero.io/timeout: 30s
+    spec:
+      containers:
+      - name: backup-prep
+        image: busybox
+        command: ["/bin/sh"]
+        args: ["-c", "echo 'Preparing backup...'"]
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: restore-hooks
+  namespace: velero
+data:
+  post-restore-hook.yaml: |
+    apiVersion: v1
+    kind: Pod
+    metadata:
+      annotations:
+        post.hook.restore.velero.io/command: '["/bin/bash", "-c", "echo Restore completed at $(date)"]'
+        post.hook.restore.velero.io/timeout: 60s
+    spec:
+      containers:
+      - name: restore-verify
+        image: busybox
+        command: ["/bin/sh"]
+        args: ["-c", "echo 'Verifying restore...'"]

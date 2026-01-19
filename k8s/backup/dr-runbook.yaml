@@ -1,0 +1,68 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: disaster-recovery-runbook
+  namespace: velero
+data:
+  dr-procedures.md: |
+    # Disaster Recovery Procedures
+    
+    ## Emergency Response Steps
+    
+    ### 1. Assess the Situation
+    ```bash
+    # Check cluster status
+    kubectl get nodes
+    kubectl get pods --all-namespaces
+    
+    # Check Velero status
+    velero get backups
+    velero get schedules
+    ```
+    
+    ### 2. Identify Latest Good Backup
+    ```bash
+    # List recent backups
+    velero backup get --selector="schedule=daily-backup"
+    
+    # Check backup details
+    velero backup describe <backup-name>
+    ```
+    
+    ### 3. Restore from Backup
+    ```bash
+    # Full cluster restore
+    velero restore create --from-backup <backup-name>
+    
+    # Namespace-specific restore
+    velero restore create --from-backup <backup-name> \
+      --include-namespaces hipster-shop
+    
+    # Selective resource restore
+    velero restore create --from-backup <backup-name> \
+      --include-resources deployments,services,configmaps
+    ```
+    
+    ### 4. Verify Restoration
+    ```bash
+    # Check restore status
+    velero restore get
+    velero restore describe <restore-name>
+    
+    # Verify applications
+    kubectl get pods -n hipster-shop
+    kubectl get svc -n hipster-shop
+    
+    # Test application functionality
+    kubectl port-forward svc/frontend 8080:8080 -n hipster-shop
+    ```
+    
+    ## Recovery Time Objectives (RTO)
+    - Critical applications: < 30 minutes
+    - Monitoring stack: < 15 minutes
+    - Security components: < 45 minutes
+    
+    ## Recovery Point Objectives (RPO)
+    - Critical data: < 6 hours
+    - Configuration data: < 24 hours
+    - Monitoring data: < 24 hours
