@@ -52,43 +52,43 @@ Optional:
 - [Helm](https://helm.sh/docs/intro/install/) (for Helm deployments)
 - [Kustomize](https://kustomize.io/) (for Kustomize deployments)
 
-## Quick Start
+## 🚀 Quick Start
 
-1. **Configure variables:**
-   ```bash
-   cp terraform-infra/terraform.tfvars.example terraform-infra/terraform.tfvars
-   # Edit with your DO token
-   ```
+```bash
+# Clone and setup
+git clone <repository-url>
+cd hipster-shop
 
-2. **Deploy everything:**
-   ```bash
-   ./scripts/deploy.sh
-   ```
+# Deploy everything with one command
+make deploy
 
-3. **Or deploy manually:**
+# Check platform health
+make health-check
 
-   **Infrastructure:**
-   ```bash
-   cd terraform-infra
-   terraform init && terraform apply
-   ```
+# Access monitoring
+make port-forward-grafana  # http://localhost:3000 (admin/admin123)
+```
 
-   **Get cluster access:**
-   ```bash
-   doctl kubernetes cluster kubeconfig save $(terraform output -raw cluster_id)
-   ```
+## 📋 Available Commands
 
-   **Deploy apps:**
-   ```bash
-   # Main application
-   helm install hipster-shop k8s/helm/hipster-shop --create-namespace
-   
-   # Monitoring stack (optional)
-   ./scripts/deploy-monitoring.sh
-   
-   # Service mesh (optional)
-   ./scripts/deploy-istio.sh
-   ```
+Run `make help` to see all available commands:
+
+```bash
+# Infrastructure
+make infra-apply          # Deploy infrastructure
+make deploy              # Deploy complete platform
+make deploy-monitoring   # Deploy monitoring stack
+
+# Testing & Validation
+make health-check        # Comprehensive health check
+make performance-test    # Run performance benchmarks
+make test-security       # Test security components
+
+# Monitoring
+make port-forward-grafana     # Access Grafana dashboard
+make port-forward-prometheus  # Access Prometheus
+make status                   # Show platform status
+```
 
 ## 📊 Monitoring & Observability
 
