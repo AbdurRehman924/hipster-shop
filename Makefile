@@ -146,3 +146,17 @@ list-backups: ## List all backups
 cost-report: ## Generate cost report (requires kubecost)
 	kubectl port-forward svc/kubecost-cost-analyzer 9090:9090 -n kubecost &
 	@echo "Kubecost available at http://localhost:9090"
+
+cost-optimization: ## Run cost optimization analysis
+	./scripts/cost-optimization.sh
+
+# Advanced Testing
+test-autoscaling: ## Test HPA and VPA functionality
+	./scripts/test-autoscaling.sh
+
+test-all: ## Run all tests
+	make validate
+	make health-check
+	make test-security
+	make test-network
+	make test-autoscaling

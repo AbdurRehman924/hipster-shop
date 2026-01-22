@@ -1,0 +1,195 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-alerts
+  namespace: monitoring
+  labels:
+    app: prometheus
+data:
+  alerts.yml: |
+    groups:
+    - name: hipster-shop.rules
+      rules:
+      # High Error Rate Alert
+      - alert: HighErrorRate
+        expr: |
+          (
+            sum(rate(http_requests_total{namespace="hipster-shop",status=~"5.."}[5m])) /
+            sum(rate(http_requests_total{namespace="hipster-shop"}[5m]))
+          ) * 100 > 5
+        for: 2m
+        labels:
+          severity: critical
+          service: "{{ $labels.service }}"
+        annotations:
+          summary: "High error rate detected"
+          description: "Error rate is {{ $value }}% for service {{ $labels.service }}"
+
+      # High Response Time Alert
+      - alert: HighResponseTime
+        expr: |
+          histogram_quantile(0.95,
+            sum(rate(http_request_duration_seconds_bucket{namespace="hipster-shop"}[5m])) by (le, service)
+          ) > 1
+        for: 5m
+        labels:
+          severity: warning
+          service: "{{ $labels.service }}"
+        annotations:
+          summary: "High response time detected"
+          description: "95th percentile response time is {{ $value }}s for service {{ $labels.service }}"
+
+      # Pod Restart Alert
+      - alert: PodRestartingTooMuch
+        expr: |
+          rate(kube_pod_container_status_restarts_total{namespace="hipster-shop"}[15m]) > 0
+        for: 0m
+        labels:
+          severity: warning
+          pod: "{{ $labels.pod }}"
+        annotations:
+          summary: "Pod is restarting frequently"
+          description: "Pod {{ $labels.pod }} in namespace {{ $labels.namespace }} is restarting frequently"
+
+      # High CPU Usage Alert
+      - alert: HighCPUUsage
+        expr: |
+          (
+            sum(rate(container_cpu_usage_seconds_total{namespace="hipster-shop"}[5m])) by (pod) /
+            sum(container_spec_cpu_quota{namespace="hipster-shop"} / container_spec_cpu_period{namespace="hipster-shop"}) by (pod)
+          ) * 100 > 80
+        for: 5m
+        labels:
+          severity: warning
+          pod: "{{ $labels.pod }}"
+        annotations:
+          summary: "High CPU usage detected"
+          description: "CPU usage is {{ $value }}% for pod {{ $labels.pod }}"
+
+      # High Memory Usage Alert
+      - alert: HighMemoryUsage
+        expr: |
+          (
+            sum(container_memory_usage_bytes{namespace="hipster-shop"}) by (pod) /
+            sum(container_spec_memory_limit_bytes{namespace="hipster-shop"}) by (pod)
+          ) * 100 > 80
+        for: 5m
+        labels:
+          severity: warning
+          pod: "{{ $labels.pod }}"
+        annotations:
+          summary: "High memory usage detected"
+          description: "Memory usage is {{ $value }}% for pod {{ $labels.pod }}"
+
+      # Pod Not Ready Alert
+      - alert: PodNotReady
+        expr: |
+          kube_pod_status_ready{condition="false",namespace="hipster-shop"} == 1
+        for: 5m
+        labels:
+          severity: critical
+          pod: "{{ $labels.pod }}"
+        annotations:
+          summary: "Pod is not ready"
+          description: "Pod {{ $labels.pod }} in namespace {{ $labels.namespace }} has been not ready for more than 5 minutes"
+
+      # Service Down Alert
+      - alert: ServiceDown
+        expr: |
+          up{namespace="hipster-shop"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          service: "{{ $labels.job }}"
+        annotations:
+          summary: "Service is down"
+          description: "Service {{ $labels.job }} in namespace {{ $labels.namespace }} is down"
+
+      # Disk Space Alert
+      - alert: DiskSpaceRunningLow
+        expr: |
+          (
+            node_filesystem_avail_bytes{mountpoint="/"} /
+            node_filesystem_size_bytes{mountpoint="/"}
+          ) * 100 < 20
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Disk space running low"
+          description: "Disk space is {{ $value }}% full on {{ $labels.instance }}"
+
+    - name: security.rules
+      rules:
+      # Security Alert for Falco Events
+      - alert: SecurityThreatDetected
+        expr: |
+          increase(falco_events_total{priority="Critical"}[5m]) > 0
+        for: 0m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Critical security threat detected"
+          description: "Falco detected a critical security event: {{ $labels.rule }}"
+
+      # High Vulnerability Count
+      - alert: HighVulnerabilityCount
+        expr: |
+          sum(trivy_vulnerability_count{severity="CRITICAL"}) by (namespace) > 5
+        for: 0m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High number of critical vulnerabilities"
+          description: "Found {{ $value }} critical vulnerabilities in namespace {{ $labels.namespace }}"
+
+    - name: backup.rules
+      rules:
+      # Backup Failure Alert
+      - alert: BackupFailed
+        expr: |
+          velero_backup_failure_total > 0
+        for: 0m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Backup failed"
+          description: "Velero backup {{ $labels.schedule }} failed"
+
+      # No Recent Backup Alert
+      - alert: NoRecentBackup
+        expr: |
+          time() - velero_backup_last_successful_timestamp > 86400
+        for: 0m
+        labels:
+          severity: warning
+        annotations:
+          summary: "No recent backup"
+          description: "No successful backup in the last 24 hours for schedule {{ $labels.schedule }}"
+
+    - name: cost.rules
+      rules:
+      # High Cost Alert
+      - alert: HighMonthlyCost
+        expr: |
+          kubecost_cluster_management_cost > 100
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Monthly cost is high"
+          description: "Current monthly cost is ${{ $value }}, exceeding budget threshold"
+
+      # Resource Waste Alert
+      - alert: ResourceWaste
+        expr: |
+          (
+            sum(container_spec_cpu_quota / container_spec_cpu_period) -
+            sum(rate(container_cpu_usage_seconds_total[5m]))
+          ) / sum(container_spec_cpu_quota / container_spec_cpu_period) * 100 > 50
+        for: 10m
+        labels:
+          severity: info
+        annotations:
+          summary: "High resource waste detected"
+          description: "CPU utilization is {{ $value }}% below requested resources"
