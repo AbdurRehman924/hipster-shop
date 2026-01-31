@@ -1,0 +1,39 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: istio-proxy
+  namespace: monitoring
+  labels:
+    app: istio-proxy
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: istiod
+  namespaceSelector:
+    matchNames:
+    - istio-system
+  endpoints:
+  - port: http-monitoring
+    interval: 15s
+    path: /stats/prometheus
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: istio-pods
+  namespace: monitoring
+  labels:
+    app: istio-pods
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      security.istio.io/tlsMode: istio
+  namespaceSelector:
+    matchNames:
+    - hipster-shop
+  podMetricsEndpoints:
+  - targetPort: 15090
+    interval: 15s
+    path: /stats/prometheus
