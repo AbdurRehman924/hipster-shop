@@ -1,0 +1,17 @@
+loki:
+  enabled: true
+  persistence:
+    enabled: true
+    size: 10Gi
+
+promtail:
+  enabled: true
+
+grafana:
+  enabled: false  # We already have Grafana
+
+fluent-bit:
+  enabled: false
+
+prometheus:
+  enabled: false  # We already have Prometheus
