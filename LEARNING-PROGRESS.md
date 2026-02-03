@@ -155,9 +155,17 @@ kubectl get pods -n istio-system
 kubectl get pods -n argocd
 # Shows: argocd-server, argocd-repo-server, argocd-application-controller, argocd-redis
 
+# Centralized Logging
+kubectl get pods -n logging
+# Shows: loki-0 (log storage), loki-promtail-xxx (log collectors on each node)
+
 # Application Stack  
 kubectl get pods -n hipster-shop
 # Shows: 8 services with sidecars (2/2), 4 services without sidecars (1/1), loadgenerator (2/2)
+
+# Autoscaling
+kubectl get hpa -n hipster-shop
+# Shows: cartservice-hpa, frontend-hpa with CPU-based scaling
 
 # Security Policies
 kubectl get networkpolicies -n hipster-shop
@@ -170,32 +178,80 @@ kubectl get networkpolicies -n hipster-shop
 - ArgoCD Dashboard: http://159.65.132.13:30080 (admin/[generated-password])
 - Hipster Shop App: http://159.65.132.13:80 (via ingress)
 
+**Complete Observability:**
+- **Metrics**: Prometheus collecting from all services and infrastructure
+- **Logs**: Loki aggregating logs from all pods across all namespaces
+- **Dashboards**: Grafana providing unified metrics + logs visualization
+- **Alerts**: AlertManager for proactive issue notification
+
 **GitOps Workflow Active:**
 - Git repository: https://github.com/AbdurRehman924/hipster-shop.git
 - ArgoCD monitoring: gitops/base/hipster-shop directory
 - Auto-sync enabled: Git push = automatic deployment
 - Self-healing active: Manual changes reverted to Git state
 
-**Service Mesh Metrics in Grafana:**
-- Navigate to Explore (compass icon)
-- Query: `istio_requests_total` to see all service mesh traffic
-- Query: `rate(istio_requests_total[5m])` to see request rates
-- Real-time traffic from loadgenerator → frontend visible
+**Autoscaling Capabilities:**
+- HPA monitoring CPU usage and scaling replicas automatically
+- Resource-optimized deployments for efficient scaling
+- Load testing tools for validation and capacity planning
+
+## ✅ PHASE 5: ADVANCED OPERATIONS - COMPLETED
+**Technologies Mastered:**
+- Loki centralized log storage and indexing
+- Promtail log collection from all cluster nodes
+- Grafana integration for unified metrics + logs view
+- LogQL query language for log analysis
+- Real-time log aggregation and search
+
+**What's Deployed:**
+- Loki stack in `logging` namespace
+- Promtail DaemonSet collecting from all 3 nodes
+- Grafana data source integration (Prometheus + Loki)
+- Centralized logs from all 11 microservices
+- Real-time log streaming and analysis capability
+
+**Key Learning Moments:**
+- Complete observability = Metrics + Logs + Traces
+- Centralized logging eliminates manual pod log checking
+- LogQL syntax for powerful log queries and filtering
+- Production debugging with correlated metrics and logs
+- Resource troubleshooting through log analysis
+
+## ✅ PHASE 6: AUTOSCALING & PERFORMANCE - COMPLETED
+**Technologies Mastered:**
+- Horizontal Pod Autoscaling (HPA) configuration
+- CPU-based scaling metrics and thresholds
+- Resource requests/limits for proper HPA function
+- Metrics-server integration for scaling decisions
+- Load testing and scaling validation
+
+**What's Deployed:**
+- HPA for cartservice (1-5 replicas, 30% CPU threshold)
+- HPA for frontend service (2-10 replicas, 50% CPU threshold)
+- Metrics-server providing CPU/memory data
+- Resource-optimized deployments for scaling
+- Load testing tools for validation
+
+**Key Learning Moments:**
+- HPA requires resource requests to function properly
+- CPU percentage calculated against resource requests
+- Scaling decisions based on sustained metrics (not spikes)
+- Resource constraints can prevent proper scaling
+- Production-grade autoscaling patterns and best practices
 
 ## 🚀 NEXT PHASES AVAILABLE
 
-### Phase 5: Advanced Operations ⚙️ **[CURRENT - IN PROGRESS]**
-- Centralized logging (Loki stack)
-- Backup & disaster recovery (Velero)
-- Chaos engineering experiments
-- Cost optimization (Kubecost)
+### Phase 7: Advanced Istio Traffic Management 🌐
+- Canary deployments and traffic splitting
+- Circuit breakers and fault injection
+- Rate limiting and retry policies
+- Advanced routing and load balancing
 
-### Phase 6: Autoscaling & Performance 📈
-- Horizontal Pod Autoscaling (HPA)
-- Vertical Pod Autoscaling (VPA)
-- Performance testing automation
-- Resource optimization & tuning
-- Istio traffic management (canary deployments, circuit breakers)
+### Phase 8: Backup & Disaster Recovery 💾
+- Velero cluster backup and restore
+- Database backup strategies
+- Cross-region disaster recovery
+- Business continuity planning
 
 ## 🎓 OUR LEARNING METHODOLOGY: MICRO-TASK APPROACH
 
@@ -361,7 +417,7 @@ kubectl describe <resource> <name> -n <namespace>
 4. Continue with small task approach for maximum learning
 
 ---
-**Session Date**: February 2, 2026
-**Learning Status**: 4/6 Phases Complete - Outstanding Progress! 🚀
-**Current Achievement**: Full GitOps automation with service mesh and monitoring
-**Next Recommended**: Complete Phase 5 (Advanced Operations) for production-ready infrastructure
+**Session Date**: February 4, 2026
+**Learning Status**: 6/8 Phases Complete - Outstanding Progress! 🚀
+**Current Achievement**: Complete observability platform with centralized logging and autoscaling
+**Next Recommended**: Phase 7 (Advanced Istio Traffic Management) or Phase 8 (Backup & Disaster Recovery)
