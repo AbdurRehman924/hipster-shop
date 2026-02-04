@@ -1,46 +1,39 @@
-# Build artifacts
-**/target/
-**/build/
-**/dist/
-**/out/
+# Terraform state files
+*.tfstate
+*.tfstate.*
+*.tfvars
+!terraform.tfvars.example
 
-# Dependencies
-node_modules/
-**/vendor/
-**/__pycache__/
-*.pyc
+# Terraform directories
+.terraform/
+.terraform.lock.hcl
 
-# IDE
+# Kubernetes configs
+kubeconfig*
+*.kubeconfig
+
+# IDE files
 .vscode/
 .idea/
-*.swp
-*.swo
 
-# OS
+# OS files
 .DS_Store
 Thumbs.db
 
-# Secrets
-*.env
-.env.*
-secrets/
-*.key
-*.pem
+# Logs
+*.log
 
-# Docker
-.dockerignore
+# Temporary files
+*.tmp
+*.temp
 
-# Kubernetes
-kubeconfig
-*.kubeconfig
+# Helm charts
+charts/
+*.tgz
 
-# DigitalOcean
-do-config.yaml
+# ArgoCD generated files
+argocd-*
 
-# Terraform
-**/.terraform/
-**/.terraform.lock.hcl
-**/terraform.tfvars
-**/terraform.tfstate
-**/terraform.tfstate.backup
-**/.terraform.tfstate.lock.info
+# Backup files
+*.bak
+*.backup

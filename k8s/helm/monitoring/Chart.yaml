@@ -1,6 +1,0 @@
-apiVersion: v2
-name: monitoring-stack
-description: Observability stack with Prometheus, Grafana, and Jaeger
-type: application
-version: 0.1.0
-appVersion: "1.0.0"
