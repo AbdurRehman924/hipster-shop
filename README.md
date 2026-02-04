@@ -14,12 +14,12 @@ terraform apply
 doctl kubernetes cluster kubeconfig save hipster-shop
 
 # 3. Begin learning journey
-# Follow LEARNING-PROGRESS.md for step-by-step guidance
+# Follow docs/LEARNING-PROGRESS.md for step-by-step guidance
 ```
 
 ## 📚 Learning Resources
-- **LEARNING-PROGRESS.md** - Complete learning journey with 15 phases
-- **COMPLETE-PROJECT-GUIDE.md** - Comprehensive technical documentation
+- **docs/LEARNING-PROGRESS.md** - Complete learning journey with 15 phases
+- **docs/COMPLETE-PROJECT-GUIDE.md** - Comprehensive technical documentation
 - **terraform-infra/** - Infrastructure as Code
 - **k8s/** - Kubernetes manifests organized by technology
 - **gitops/** - GitOps configurations for ArgoCD

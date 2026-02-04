@@ -11,7 +11,7 @@ help: ## Show available commands
 	@echo "Learning Commands:"
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 	@echo ""
-	@echo "📚 For detailed learning guidance, see: LEARNING-PROGRESS.md"
+	@echo "📚 For detailed learning guidance, see: docs/LEARNING-PROGRESS.md"
 
 learning-help: ## Show learning methodology and phase overview
 	@echo "🎓 Enhanced Learning Methodology"
@@ -36,7 +36,7 @@ learning-help: ## Show learning methodology and phase overview
 	@echo "Phase 15: CI/CD Integration (Tasks 936-1000)"
 	@echo ""
 	@echo "🎯 Current Status: Ready for Phase 1"
-	@echo "📖 Next: Follow LEARNING-PROGRESS.md for step-by-step guidance"
+	@echo "📖 Next: Follow docs/LEARNING-PROGRESS.md for step-by-step guidance"
 
 # Infrastructure Management
 init: ## Initialize infrastructure (Phase 1)
@@ -53,7 +53,7 @@ deploy-cluster: ## Deploy Kubernetes cluster (Phase 1)
 status: ## Show current learning progress and platform status
 	@echo "📊 Learning Progress Status"
 	@echo "=========================="
-	@echo "Current Phase: Check LEARNING-PROGRESS.md"
+	@echo "Current Phase: Check docs/LEARNING-PROGRESS.md"
 	@echo ""
 	@echo "🏗️  Infrastructure Status:"
 	@if kubectl cluster-info >/dev/null 2>&1; then \
@@ -85,7 +85,7 @@ destroy-all: ## Complete teardown (nuclear option)
 next-phase: ## Show what to do next in learning journey
 	@echo "🎯 Next Learning Steps"
 	@echo "===================="
-	@echo "1. Check LEARNING-PROGRESS.md for current phase"
+	@echo "1. Check docs/LEARNING-PROGRESS.md for current phase"
 	@echo "2. Follow micro-task methodology"
 	@echo "3. Execute commands hands-on for maximum learning"
 	@echo "4. Verify each step before proceeding"
