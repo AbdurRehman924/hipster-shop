@@ -4,8 +4,7 @@ metadata:
   name: hipster-shop-alerts
   namespace: monitoring
   labels:
-    prometheus: kube-prometheus
-    role: alert-rules
+    release: prometheus
 spec:
   groups:
   - name: hipster-shop-alerts
