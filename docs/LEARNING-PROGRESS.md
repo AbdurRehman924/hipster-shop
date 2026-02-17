@@ -3,9 +3,10 @@
 ## 🎯 Project Overview
 **Mission**: Master production-grade cloud-native technologies through hands-on implementation of a complete enterprise platform.
 
-- **Cluster**: 3-node Azure Kubernetes Service (AKS) cluster
+- **Cluster**: Azure Kubernetes Service (AKS) cluster
 - **Learning Philosophy**: Hands-on execution + Real-world scenarios + Progressive complexity
-- **Goal**: Build skills equivalent to Senior DevOps/Platform Engineer level + Kubernetes internals expertise
+- **Goal**: Build portfolio-ready skills for DevOps/Platform Engineer roles (Entry to Mid-Senior level)
+- **Scope**: 11 phases covering essential production technologies (Core + Intermediate)
 
 ## ⚠️ IMPORTANT: LEARNING MODE
 **YOU execute all commands yourself - AI provides guidance only**
@@ -131,54 +132,39 @@
 - [ ] Cross-region disaster recovery testing
 - [ ] Recovery time and point objectives (RTO/RPO)
 
-### ❌ PHASE 11: CHAOS ENGINEERING (Not Started)
-**Target Skills**: Resilience testing, Failure simulation, System hardening
-- [ ] Chaos Mesh installation and configuration
-- [ ] Pod and node failure simulation
-- [ ] Network partition and latency injection
-
-### ❌ PHASE 12: COST OPTIMIZATION (Not Started)
-**Target Skills**: Resource efficiency, Cost allocation, Budget management
-- [ ] Kubecost deployment and configuration
-- [ ] Resource quotas and limit ranges
-- [ ] Cost allocation and chargeback implementation
-
-### ❌ PHASE 13: ADVANCED SECURITY (Not Started)
-**Target Skills**: Zero-trust architecture, Secret management, Compliance
-- [ ] External Secrets Operator and secret management
-- [ ] Gatekeeper/Kyverno policy enforcement
-- [ ] Image signing and supply chain security
-- [ ] Compliance scanning and reporting
-
-### ❌ PHASE 14: MULTI-ENVIRONMENT SETUP (Not Started)
-**Target Skills**: Environment management, Promotion pipelines, Configuration drift
-- [ ] Dev/Staging/Production environment setup
-- [ ] Environment-specific configurations and secrets
-- [ ] Automated promotion pipelines and approval workflows
-
-### ❌ PHASE 15: DISTRIBUTED TRACING (Not Started)
+### ❌ PHASE 11: DISTRIBUTED TRACING (Not Started)
 **Target Skills**: Request tracing, Performance analysis, Debugging microservices
 - [ ] Jaeger deployment and configuration
-- [ ] OpenTelemetry instrumentation
+- [ ] OpenTelemetry instrumentation with Istio
 - [ ] Trace analysis and performance optimization
+- [ ] Correlating traces with metrics and logs
 
-### ❌ PHASE 16: CI/CD INTEGRATION (Not Started)
-**Target Skills**: Pipeline automation, Testing integration, Security scanning
-- [ ] GitHub Actions pipeline setup
-- [ ] Automated testing and security scanning
-- [ ] Integration with GitOps workflows
-- [ ] Advanced deployment strategies and rollback automation
+---
 
-### ❌ PHASE 17: KUBERNETES INTERNALS & DIY CLUSTER (Not Started)
-**Target Skills**: Cluster architecture, Control plane components, Manual cluster setup
-- [ ] kubeadm cluster setup on Azure VMs
-- [ ] etcd cluster configuration and backup/restore
-- [ ] Control plane components deep dive (API server, scheduler, controller-manager)
-- [ ] Certificate management and rotation
-- [ ] CNI plugin comparison and custom networking
-- [ ] Cluster upgrade procedures and troubleshooting
-- [ ] Performance tuning and optimization
-- [ ] Compare DIY vs AKS operational overhead
+## 🎯 PHASE BREAKDOWN: CORE vs INTERMEDIATE
+
+### **CORE PHASES (1-8)** - Essential Production Skills
+These phases build the foundation of a production-ready platform:
+- Infrastructure, Microservices, Observability, Security, Service Mesh, GitOps, Logging, Autoscaling
+
+**Portfolio Impact**: ⭐⭐⭐⭐⭐ (Must-have for DevOps/Platform roles)
+
+### **INTERMEDIATE PHASES (9-11)** - Advanced Production Skills  
+These phases demonstrate advanced operational capabilities:
+- Traffic Management, Disaster Recovery, Distributed Tracing
+
+**Portfolio Impact**: ⭐⭐⭐⭐ (Nice-to-have, shows depth)
+
+### **EXCLUDED PHASES** - Advanced/Specialized Topics
+The following phases are excluded as they're too advanced for portfolio focus:
+- Chaos Engineering (Phase 11 → removed)
+- Cost Optimization (Phase 12 → removed)
+- Advanced Security (Phase 13 → removed)
+- Multi-Environment Setup (Phase 14 → removed)
+- CI/CD Integration (Phase 16 → removed)
+- Kubernetes Internals & DIY Cluster (Phase 17 → removed)
+
+**Note**: These can be added later for senior-level roles or specialized positions.
 
 ## 🎓 LEARNING METHODOLOGY
 
@@ -251,17 +237,18 @@ Each learning session follows this flow:
 
 ## 🎯 CURRENT STATUS
 **Platform State**: Phase 4 complete - Full security stack operational
-**Current Phase**: Phase 5 - Service Mesh & Networking (Ready to start)
-**Next Step**: Deploy Istio control plane and data plane
-**Target**: Complete all 17 phases for cloud-native mastery
+**Current Phase**: Phase 5 - Service Mesh & Networking (In Progress - Istio control plane deployed)
+**Next Step**: Enable sidecar injection and redeploy microservices with Envoy proxies
+**Target**: Complete 11 portfolio-ready phases (Core + Intermediate)
 
-**Session Date**: February 12, 2026
+**Session Date**: February 14, 2026
 **Progress**: 
 - Microservices: 11 services running at 20.195.32.156
 - Monitoring: Prometheus + Grafana + AlertManager fully operational
 - Grafana: http://20.212.91.193
 - Alerts: Slack integration verified and working
 - Security: Falco + Trivy + Network Policies + Pod Security Standards active
+- Service Mesh: Istio 1.28.3 control plane deployed (istiod + gateways)
 
 ## 🚀 LEARNING ADVANTAGES
 
@@ -283,16 +270,24 @@ Each learning session follows this flow:
 ## 📝 SUCCESS METRICS
 
 **Technical Goals:**
-- [ ] 17 technology phases completed
+- [ ] 11 technology phases completed (Core + Intermediate)
 - [ ] Production-grade platform deployed and operational
-- [ ] Complete observability implemented (metrics + logs + traces)
-- [ ] DIY Kubernetes cluster built and compared with managed service
+- [ ] Complete observability stack (metrics + logs + traces)
+- [ ] GitOps automation with ArgoCD
+- [ ] Service mesh with traffic management
+- [ ] Disaster recovery capabilities
 
 **Learning Goals:**
 - [ ] Ability to rebuild platform independently
-- [ ] Troubleshoot complex distributed systems
-- [ ] Optimize configurations for performance and cost
-- [ ] Deep understanding of Kubernetes internals
+- [ ] Troubleshoot distributed systems issues
+- [ ] Implement security best practices
+- [ ] Demonstrate production-ready skills for DevOps/Platform roles
+
+**Portfolio Goals:**
+- [ ] Comprehensive README with architecture diagrams
+- [ ] Document key learnings and challenges overcome
+- [ ] Create demo video showcasing platform capabilities
+- [ ] Prepare interview talking points for each phase
 
 ## 🎖️ CERTIFICATION READINESS
 
@@ -310,5 +305,6 @@ Upon completion, you'll be ready for:
 Build hands-on skills with production-grade technologies, understand the "why" behind each component, optimize for real-world scenarios, and document lessons learned.
 
 ---
-**Current Phase**: Ready to begin Phase 4 SECURITY & COMPLIANCE
-**Target**: Complete all 17 phases for cloud-native mastery
+**Current Phase**: Phase 5 - Service Mesh & Networking (In Progress)
+**Target**: Complete 11 portfolio-ready phases for DevOps/Platform Engineer roles
+**Timeline**: ~1-2 weeks to completion (7 phases remaining)
