@@ -37,3 +37,6 @@ argocd-*
 # Backup files
 *.bak
 *.backup
+
+# Istio binary distribution
+istio-*/
