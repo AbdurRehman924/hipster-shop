@@ -31,8 +31,8 @@ Thumbs.db
 charts/
 *.tgz
 
-# ArgoCD generated files
-argocd-*
+# ArgoCD generated files (but keep our manifests)
+# argocd-* (commented out to allow argocd-app.yaml)
 
 # Backup files
 *.bak
