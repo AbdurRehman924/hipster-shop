@@ -146,12 +146,25 @@
 - Security: Non-root user (10001) with proper fsGroup permissions
 - Log Discovery: Kubernetes pod role with CRI pipeline for containerd logs
 
-### ❌ PHASE 8: AUTOSCALING & PERFORMANCE (Not Started)
+### ✅ PHASE 8: AUTOSCALING & PERFORMANCE (Complete)
 **Target Skills**: Dynamic scaling, Resource optimization, Performance tuning
-- [ ] Horizontal Pod Autoscaling (HPA) implementation
-- [ ] Vertical Pod Autoscaling (VPA) and resource right-sizing
-- [ ] Cluster Autoscaling and node management
-- [ ] Performance testing and capacity planning
+- [x] Horizontal Pod Autoscaling (HPA) implementation
+- [x] Vertical Pod Autoscaling (VPA) for resource recommendations
+- [x] Pod Disruption Budgets (PDB) for high availability
+- [x] Performance testing and validation
+
+**Completed Configuration**:
+- HPA: 4 autoscalers deployed (frontend, productcatalog, recommendation, checkout)
+- Scaling Triggers: CPU (70% threshold) and Memory (80% threshold)
+- Frontend: 2-10 replicas with advanced scale-up/down policies
+- Services: 1-5 replicas with standard policies
+- VPA: 3 recommenders in "Off" mode (cart, email, payment services)
+- VPA Recommender: Running in kube-system with 256Mi memory
+- PDB: 4 budgets protecting critical services from disruption
+- Frontend PDB: minAvailable=2 (always 2 pods running)
+- Services PDB: maxUnavailable=1 (controlled rolling updates)
+- Metrics Server: Operational and collecting pod/node metrics
+- Observed Scaling: Recommendation service auto-scaled to 4 replicas (memory pressure)
 
 ### ❌ PHASE 9: ADVANCED TRAFFIC MANAGEMENT (Not Started)
 **Target Skills**: Canary deployments, A/B testing, Advanced routing
@@ -271,13 +284,13 @@ Each learning session follows this flow:
 - Understand the "why" behind each decision
 
 ## 🎯 CURRENT STATUS
-**Platform State**: Phase 7 complete - Centralized logging infrastructure deployed
-**Current Phase**: Phase 8 - Autoscaling & Performance (Ready to start)
-**Next Step**: Deploy HPA and VPA for dynamic resource scaling
+**Platform State**: Phase 8 complete - Autoscaling and performance optimization operational
+**Current Phase**: Phase 9 - Advanced Traffic Management (Ready to start)
+**Next Step**: Implement Istio traffic splitting and canary deployments
 **Target**: Complete 11 portfolio-ready phases (Core + Intermediate)
-**Progress**: 7 of 11 phases complete (64%)
+**Progress**: 8 of 11 phases complete (73%)
 
-**Session Date**: February 23, 2026
+**Session Date**: February 24, 2026
 **Infrastructure**: 
 - Cluster: Azure AKS (2 nodes, Southeast Asia)
 - Microservices: 12 services running at 20.195.32.156 (managed by ArgoCD)
@@ -291,6 +304,8 @@ Each learning session follows this flow:
 - GitOps: ArgoCD managing all deployments with auto-sync enabled
 - ArgoCD UI: https://localhost:8080 (port-forward)
 - Logging: Loki + Promtail infrastructure deployed (Grafana datasource configured)
+- Autoscaling: HPA (4 services), VPA (3 services), PDB (4 services) operational
+- Active Scaling: Recommendation service scaled to 4 replicas automatically
 
 ## 🚀 LEARNING ADVANTAGES
 
@@ -347,7 +362,7 @@ Upon completion, you'll be ready for:
 Build hands-on skills with production-grade technologies, understand the "why" behind each component, optimize for real-world scenarios, and document lessons learned.
 
 ---
-**Current Phase**: Phase 8 - Autoscaling & Performance (Ready to start)
+**Current Phase**: Phase 9 - Advanced Traffic Management (Ready to start)
 **Target**: Complete 11 portfolio-ready phases for DevOps/Platform Engineer roles
-**Timeline**: ~1 week to completion (4 phases remaining)
-**Completed**: 7 of 11 phases (64% complete)
+**Timeline**: ~3 days to completion (3 phases remaining)
+**Completed**: 8 of 11 phases (73% complete)
