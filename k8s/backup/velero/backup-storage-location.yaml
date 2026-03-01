@@ -1,0 +1,13 @@
+apiVersion: velero.io/v1
+kind: BackupStorageLocation
+metadata:
+  name: default
+  namespace: velero
+spec:
+  provider: azure
+  objectStorage:
+    bucket: velero-backups
+  config:
+    resourceGroup: hipster-shop-rg
+    storageAccount: hipstershopbackups
+    storageAccountKeyEnvVar: AZURE_STORAGE_ACCOUNT_ACCESS_KEY
