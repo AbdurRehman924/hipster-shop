@@ -185,12 +185,28 @@
 - A/B Testing: Header-based routing (user-type: beta-tester → v2)
 - Traffic Management: 7 Istio resources (Gateway, VirtualServices, DestinationRules)
 
-### ❌ PHASE 10: BACKUP & DISASTER RECOVERY (Not Started)
+### ✅ PHASE 10: BACKUP & DISASTER RECOVERY (Complete)
 **Target Skills**: Business continuity, Data protection, Recovery procedures
-- [ ] Velero backup and restore setup
-- [ ] Database backup strategies and automation
-- [ ] Cross-region disaster recovery testing
-- [ ] Recovery time and point objectives (RTO/RPO)
+- [x] Azure Blob Storage setup for backups
+- [x] Velero CLI and server installation
+- [x] Backup storage location configuration
+- [x] Manual backup creation and verification
+- [x] Disaster recovery testing (namespace deletion and restore)
+- [x] Scheduled backup automation (daily at 2 AM)
+- [x] RTO/RPO metrics validation
+
+**Completed Configuration**:
+- Namespace: velero
+- Velero Version: v1.13.0
+- Azure Plugin: v1.9.0
+- Storage Account: hipstershopbackups (Southeast Asia)
+- Blob Container: velero-backups
+- Backup Location: Available and validated
+- Manual Backup: hipster-shop-backup-1 (713 resources, 565 KB)
+- Scheduled Backup: Daily at 2:00 AM with 30-day retention
+- Disaster Recovery Test: Successfully restored 158 resources in 36 seconds
+- RTO: ~1 minute | RPO: 24 hours
+- Backup Storage: Azure Blob Storage (Hot tier, < $1/month)
 
 ### ❌ PHASE 11: DISTRIBUTED TRACING (Not Started)
 **Target Skills**: Request tracing, Performance analysis, Debugging microservices
@@ -296,13 +312,13 @@ Each learning session follows this flow:
 - Understand the "why" behind each decision
 
 ## 🎯 CURRENT STATUS
-**Platform State**: Phase 9 complete - Advanced traffic management operational
-**Current Phase**: Phase 10 - Backup & Disaster Recovery (Ready to start)
-**Next Step**: Deploy Velero for cluster backups and disaster recovery
+**Platform State**: Phase 10 complete - Backup and disaster recovery operational
+**Current Phase**: Phase 11 - Distributed Tracing (Ready to start)
+**Next Step**: Deploy Jaeger for distributed tracing and request flow analysis
 **Target**: Complete 11 portfolio-ready phases (Core + Intermediate)
-**Progress**: 9 of 11 phases complete (82%)
+**Progress**: 10 of 11 phases complete (91%)
 
-**Session Date**: February 27, 2026
+**Session Date**: March 1, 2026
 **Infrastructure**: 
 - Cluster: Azure AKS (2 nodes, Southeast Asia)
 - Microservices: 12 services running at 20.195.32.156 (managed by ArgoCD)
@@ -320,6 +336,7 @@ Each learning session follows this flow:
 - Active Scaling: Recommendation service scaled to 4 replicas automatically
 - Traffic Management: Canary deployments, circuit breakers, rate limiting, A/B testing operational
 - Istio Gateway: hipster-gateway handling external traffic on port 80
+- Backup & DR: Velero v1.13.0 with Azure Blob Storage, daily backups at 2 AM, tested disaster recovery
 
 ## 🚀 LEARNING ADVANTAGES
 
@@ -376,7 +393,7 @@ Upon completion, you'll be ready for:
 Build hands-on skills with production-grade technologies, understand the "why" behind each component, optimize for real-world scenarios, and document lessons learned.
 
 ---
-**Current Phase**: Phase 10 - Backup & Disaster Recovery (Ready to start)
+**Current Phase**: Phase 11 - Distributed Tracing (Ready to start)
 **Target**: Complete 11 portfolio-ready phases for DevOps/Platform Engineer roles
-**Timeline**: ~2 days to completion (2 phases remaining)
-**Completed**: 9 of 11 phases (82% complete)
+**Timeline**: ~1 day to completion (1 phase remaining)
+**Completed**: 10 of 11 phases (91% complete)
