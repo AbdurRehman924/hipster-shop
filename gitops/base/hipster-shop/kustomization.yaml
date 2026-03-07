@@ -17,15 +17,15 @@ resources:
   - loadgenerator.yaml
   
   # Autoscaling resources
-  - ../../../k8s/autoscaling/recommendation-hpa.yaml
-  - ../../../k8s/autoscaling/frontend-hpa.yaml
-  - ../../../k8s/autoscaling/productcatalog-hpa.yaml
-  - ../../../k8s/autoscaling/checkoutservice-hpa.yaml
-  - ../../../k8s/autoscaling/cartservice-vpa.yaml
-  - ../../../k8s/autoscaling/emailservice-vpa.yaml
-  - ../../../k8s/autoscaling/paymentservice-vpa.yaml
-  - ../../../k8s/autoscaling/frontend-pdb.yaml
-  - ../../../k8s/autoscaling/services-pdb.yaml
+  - autoscaling/recommendation-hpa.yaml
+  - autoscaling/frontend-hpa.yaml
+  - autoscaling/productcatalog-hpa.yaml
+  - autoscaling/checkoutservice-hpa.yaml
+  - autoscaling/cartservice-vpa.yaml
+  - autoscaling/emailservice-vpa.yaml
+  - autoscaling/paymentservice-vpa.yaml
+  - autoscaling/frontend-pdb.yaml
+  - autoscaling/services-pdb.yaml
 
 commonLabels:
   app.kubernetes.io/name: hipster-shop
