@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/AbdurRehman924/hipster-shop.git
     targetRevision: main
-    path: gitops/base/hipster-shop
+    path: k8s/applications/hipster-shop
   destination:
     server: https://kubernetes.default.svc
     namespace: hipster-shop
