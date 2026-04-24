@@ -97,7 +97,7 @@ The hipster-shop app consists of 11 microservices deployed to the `hipster-shop`
 | 14 | Distributed Tracing | Jaeger |
 | 15 | CI/CD Integration | GitHub Actions |
 
-See `docs/LEARNING-PROGRESS.md` for detailed task breakdowns and `docs/PRACTICAL-SCENARIOS.md` for scenario-based exercises.
+See `docs/progress.md` for detailed task breakdowns and `docs/PRACTICAL-SCENARIOS.md` for scenario-based exercises.
 
 ---
 
