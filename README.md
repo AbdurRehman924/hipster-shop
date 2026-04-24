@@ -1,6 +1,6 @@
 # Hipster Shop - Cloud-Native Environment
 
-A hands-on Kubernetes environment built around Google's [Online Boutique](https://github.com/GoogleCloudPlatform/microservices-demo) (hipster-shop) microservices demo app. The project covers production-grade cloud-native tooling across 15 phases using real manifests, Terraform infrastructure, and GitOps workflows.
+A Kubernetes environment built around Google's [Online Boutique](https://github.com/GoogleCloudPlatform/microservices-demo) (hipster-shop) microservices demo app.
 
 ---
 
