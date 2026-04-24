@@ -77,7 +77,7 @@ The hipster-shop app consists of 11 microservices deployed to the `hipster-shop`
 
 ---
 
-## Learning Phases
+## Phases
 
 | Phase | Topic | K8s Area |
 |---|---|---|
