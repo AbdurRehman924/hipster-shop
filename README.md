@@ -24,7 +24,7 @@ hipster-shop/
 ├── scripts/
 │   └── verify-platform.sh        # Full platform health check
 ├── docs/
-│   ├── LEARNING-PROGRESS.md      # Phase-by-phase progress tracker
+│   ├── PROGRESS.md               # Phase-by-phase progress tracker
 │   └── PRACTICAL-SCENARIOS.md    # Real-world scenario walkthroughs
 └── Makefile                      # Common workflow shortcuts
 ```
